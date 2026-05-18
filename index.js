@@ -34,6 +34,32 @@ function nextId(tasks) {
     return Math.max(...tasks.map((task) => task.id)) + 1;
 }
 
+function currentTimestamp() {
+    return new Date().toISOString();
+}
+
+
+
+function addTask(description) {
+  if (!description) {
+    console.log("Task description is required.");
+    return;
+  }
+
+  const tasks = loadTasks();
+  const task = {
+    id: nextId(tasks),
+    description,
+    status: "todo",
+    createdAt: currentTimestamp(),
+    updatedAt: currentTimestamp(),
+  };
+
+  tasks.push(task);
+  saveTasks(tasks);
+
+  console.log(`Task added successfully (ID: ${task.id})`);
+}
 
 
 const args = process.argv.slice(2);
