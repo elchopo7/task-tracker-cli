@@ -38,8 +38,6 @@ function currentTimestamp() {
     return new Date().toISOString();
 }
 
-
-
 function addTask(description) {
   if (!description) {
     console.log("Task description is required.");
@@ -60,6 +58,27 @@ function addTask(description) {
 
   console.log(`Task added successfully (ID: ${task.id})`);
 }
+
+function listTasks(statusFilter = null) {
+    const tasks = loadTasks();
+
+    const filteredTasks = statusFilter
+    ? tasks.filter((tasks) => tasks.status === statusFilter)
+    : tasks;
+
+    if (filteredTasks.length === 0) {
+        console.log("No tasks found.");
+        return;
+    }
+
+    filteredTasks.forEach((task) => {
+        console.log(
+            `[${task.id}] ${task.description} | ${task.status} | Created: ${task.createdAt} | Updated: ${task.updatedAt}`
+        );
+    });
+}
+
+
 
 
 const args = process.argv.slice(2);
