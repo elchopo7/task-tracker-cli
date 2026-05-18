@@ -78,7 +78,26 @@ function listTasks(statusFilter = null) {
     });
 }
 
+function updateTask(id, newDescription) {
+    if (!id) {
+        console.log("Task ID is required.");
+        return;
+    }
 
+    const tasks = loadTasks();
+    const task = tasks.find((item) => item.id === id);
+
+    if (!task) {
+        console.log(`Task with ID ${id} not found`)
+        return;
+    }
+
+    task.description = newDescription.trim();
+    task.updatedAt = currentTimestamp();
+
+    saveTasks(tasks);
+    console.log(`Task ${id} updated succesfully`);
+}
 
 
 const args = process.argv.slice(2);
