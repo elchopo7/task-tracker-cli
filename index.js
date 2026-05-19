@@ -126,7 +126,7 @@ function markTaskStatus(id, status) {
     }
 
     const tasks = loadTasks();
-    const taskIndex = tasks.findIndex((item) => item.id === id);
+    const task = tasks.find((item) => item.id === id);
 
     if (!task) {
         console.log(`Task with ID ${id} not found.`);
