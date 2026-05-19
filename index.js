@@ -99,6 +99,25 @@ function updateTask(id, newDescription) {
     console.log(`Task ${id} updated succesfully`);
 }
 
+function deleteTask(id) {
+    if (!id) {
+        console.log("Task ID is required.")
+        return;
+    }
+
+    const tasks = loadTasks();
+    const taskIndex = tasks.findIndex((item) => item.id === id);
+
+    if (taskIndex === -1) {
+        console.log(`Task with ID ${id} not found.`)
+        return;
+    }
+
+    tasks.splice(taskIndex, 1);
+    saveTasks(tasks);
+
+    console.log(`Task ${id} deleted successfully.`)
+}
 
 const args = process.argv.slice(2);
 const command = args[0];
