@@ -145,23 +145,51 @@ const command = args[0];
 
 switch (command) {
   case "add":
-    console.log("Add command selected");
+    addTask(args.slice(1).join(" "));
     break;
-  case "update":
-    console.log("Update command selected");
+
+  case "update": {
+    const id = Number(args[1]);
+    const newDescription = args.slice(2).join(" ");
+    updateTask(id, newDescription);
     break;
-  case "delete":
-    console.log("Delete command selected");
+  }
+
+  case "delete": {
+    const id = Number(args[1]);
+    deleteTask(id);
     break;
-  case "mark-in-progress":
-    console.log("Mark in progress command selected");
+  }
+
+  case "mark-in-progress": {
+    const id = Number(args[1]);
+    markTaskStatus(id, "in-progress");
     break;
-  case "mark-done":
-    console.log("Mark done command selected");
+  }
+
+  case "mark-done": {
+    const id = Number(args[1]);
+    markTaskStatus(id, "done");
     break;
-  case "list":
-    console.log("List command selected");
+  }
+
+  case "list": {
+    const status = args[1];
+
+    if (!status) {
+      listTasks();
+      break;
+    }
+
+    if (status === "done" || status === "todo" || status === "in-progress") {
+      listTasks(status);
+    } else {
+      console.log("Invalid list status. Use: done, todo, or in-progress.");
+    }
+
     break;
+  }
+
   default:
     console.log("Unknown command");
 }
