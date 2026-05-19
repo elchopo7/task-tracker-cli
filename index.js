@@ -119,6 +119,27 @@ function deleteTask(id) {
     console.log(`Task ${id} deleted successfully.`)
 }
 
+function markTaskStatus(id, status) {
+    if (!id) {
+        console.log("Task ID required.");
+        return;
+    }
+
+    const tasks = loadTasks();
+    const taskIndex = tasks.findIndex((item) => item.id === id);
+
+    if (!task) {
+        console.log(`Task with ID ${id} not found.`);
+        return;
+    }
+
+    task.status = status;
+    task.updatedAt = currentTimestamp();
+
+    saveTasks(tasks);
+    console.log(`Task ${id} marked as ${status}.`)
+}
+
 const args = process.argv.slice(2);
 const command = args[0];
 
